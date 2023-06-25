@@ -1,0 +1,22 @@
+/* Рисуем клетки важности */
+.text14 {
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+
+ }
+  
+
+a {
+  text-decoration: none
+}
+
+.prods_table td {
+padding: 5px;
+  border: 1px solid black;
+}
+
+.tab_50{
+width: 50%;
+
+}
