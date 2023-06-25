@@ -46,7 +46,7 @@ $res = json_decode($res, true);
 foreach ($res['stocks'] as $prods)  {
     foreach ($arr_catalog as &$items) {
         if ($prods['sku'] == $items['barcode']) {
-$items['quntity'] = $prods['amount'];
+$items['quantity'] = $prods['amount'];
         }
 
 }
@@ -117,7 +117,7 @@ foreach ($arr_article_count as $key=>$prods)  {
 // echo "<pre>";
 // print_r($arr_catalog);
 
-
+$quantity_1c = 29;
 
 echo <<<HTML
 <table>
@@ -125,29 +125,40 @@ echo <<<HTML
     <td>артикул</td>
     <td>Наименование</td>
     <td>БарКод</td>
-    <td>Кол-во на складе<br>(Остаток)</td>
+    <td>Кол-во на WB<br>(Остаток)</td>
     <td>Кол-во продано</td>
     <td>Обновить остатки из 1С</td>
+    <td>Кол-во будет на WB<br>(Будуший остаток)</td>
+    <td>START</td>
 
 </tr>
 HTML;
 foreach ($arr_catalog as $items) {
     $article = $items['real_article'];
     $name = $items['name'];
-    $quntity = $items['quntity'];
+    $quantity = $items['quantity'];
     $barCode =  $items['barcode'];
     isset($items['sell_count'])?$sell_count = $items['sell_count']:$sell_count = 0;
 
+$value_in_wb_bd = $quantity_1c - $sell_count-1; // делаем запас на 1 шт;
+
 echo <<<HTML
 <tr class="prods_table">
+   <form action="update_count_items.php" method="get">
     <td>$article</td>
     <td>$name</td>
     <td>$barCode</td>
 
-    <td>$quntity</td>
+    <td>$quantity</td>
     <td>$sell_count</td>
-    <td><input type="number" value=0></td>
+    <td>$quantity_1c</td>
 
+    <td><input type="number" name="value_in_wb_bd" value=$value_in_wb_bd></td>
+    <td><input type="submit" value="START"></td>
+
+    <input hidden type="text"  name = "BarCode" value="$barCode">
+
+</form>
 </tr>
 
 HTML;

@@ -11,31 +11,43 @@ foreach ($arr_catalog as $items) {
 
 $warehouseId = 34790;// ID склада ООО на ВБ
 
+// $data = array("stocks" => array(
+//     array("sku" => "4673728485587",
+//           "amount" => 18),
+//     array("sku" => "4673728485594",
+//           "amount" => 48),
+// ));
+
+$sku= $_GET['BarCode'];
+$amount= (int)$_GET['value_in_wb_bd'];
+
 $data = array("stocks" => array(
     array("sku" => "4673728485587",
-          "amount" => 18),
-    array("sku" => "4673728485594",
-          "amount" => 48),
-));
+          "amount" => 18)
 
-// $data ='
-//     {
-//         "stocks": [
-//           {
-//             "sku": "70661636",
-//             "amount": "11"
-//           }
-//         ]
-//       }
-// ';
+));
 
 
 echo "<pre>";
-print_r($data);
+var_dump($data);
 
-$js_data = json_encode($data, JSON_UNESCAPED_UNICODE);
-echo $js_data;
 
+
+
+$one_item_quantity = array("sku"    => $sku,
+                           "amount" => $amount);
+
+
+$data = array("stocks" => array($one_item_quantity));
+
+echo "<pre>";
+var_dump($data);
+
+
+
+// $js_data = json_encode($data, JSON_UNESCAPED_UNICODE);
+// echo $js_data;
+// die('Die pered');
 $ch = curl_init('https://suppliers-api.wildberries.ru/api/v3/stocks/34790');
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 	'Authorization:' . $token_wb,
