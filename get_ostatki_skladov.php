@@ -39,6 +39,9 @@ echo     'Результат обмена : '.$http_code. "<br>";
 $res = json_decode($res, true);
 
 
+echo "<pre>";
+print_r($res);
+
 
 foreach ($res['stocks'] as $prods)  {
     foreach ($arr_catalog as &$items) {
@@ -72,7 +75,6 @@ curl_close($ch);
 echo     'Результат обмена : '.$http_code. "<br>";
 
 $result = json_decode($res, true);
-
 
 
 
@@ -122,6 +124,7 @@ echo <<<HTML
 <tr class="prods_table">
     <td>артикул</td>
     <td>Наименование</td>
+    <td>БарКод</td>
     <td>Кол-во на складе</td>
     <td>Кол-во продано</td>
     <td>Обновить остатки из 1С</td>
@@ -132,12 +135,15 @@ foreach ($arr_catalog as $items) {
     $article = $items['real_article'];
     $name = $items['name'];
     $quntity = $items['quntity'];
+    $barCode =  $items['barcode'];
     isset($items['sell_count'])?$sell_count = $items['sell_count']:$sell_count = 0;
 
 echo <<<HTML
 <tr class="prods_table">
     <td>$article</td>
     <td>$name</td>
+    <td>$barCode</td>
+
     <td>$quntity</td>
     <td>$sell_count</td>
     <td><input type="number" value=0></td>
