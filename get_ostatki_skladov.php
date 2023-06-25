@@ -39,8 +39,8 @@ echo     'Результат обмена : '.$http_code. "<br>";
 $res = json_decode($res, true);
 
 
-echo "<pre>";
-print_r($res);
+// echo "<pre>";
+// print_r($res);
 
 
 foreach ($res['stocks'] as $prods)  {
@@ -125,7 +125,7 @@ echo <<<HTML
     <td>артикул</td>
     <td>Наименование</td>
     <td>БарКод</td>
-    <td>Кол-во на складе</td>
+    <td>Кол-во на складе<br>(Остаток)</td>
     <td>Кол-во продано</td>
     <td>Обновить остатки из 1С</td>
 
